@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>D:\#Study\IASA3\Paralel\Labs\Lab6\dynlibs1\Release\dll_max_coll_num_dyn.dll</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>D:\#Study\IASA3\Paralel\Labs\Lab6\dynlibs1\Release\Mult_coll.dll</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>D:\#Study\IASA3\Paralel\Labs\Lab6\dynlibs1\Release\lab4_mod.exe</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>
