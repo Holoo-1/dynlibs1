@@ -6,8 +6,6 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 #include <future>
-#include "Max_coll.h"
-#include "Mult_coll.h"
 
 
 #pragma comment(lib, "ws2_32.lib")
@@ -22,35 +20,34 @@ static mutex m;
 void calculate_mult_thread(int** matrix, int start, int end, int MATRIX_SIZE, std::promise<bool>& promise) {
     this_thread::sleep_for(std::chrono::seconds(3));
 
-    // Load // dll_max_coll_num_dyn.dll  // Mult_col.dll
+    // Load // dll_max_coll_num_dyn.dll  // Mult_coll.dll
     HMODULE hDLL = LoadLibrary(L"dll_max_coll_num_dyn.dll");
     if (hDLL == NULL) {
         printf("load error");
     }
 
-    // MaxOfColl MultOfColl 
-    typedef int(*MultxOfCollFunc)(int[], int);
-    MultxOfCollFunc maxOfColl = (MultxOfCollFunc)GetProcAddress(hDLL, "MaxOfColl");
-    if (maxOfColl == NULL) {
+    typedef int(*calccoll)(int[], int);
+    calccoll calculate = (calccoll)GetProcAddress(hDLL, "calculate");
+    if (calculate == NULL) {
         printf("func error");
     }
 
     // Calculate
-    int* maxColumnValues = new int[MATRIX_SIZE];
+    int* diagonal = new int[MATRIX_SIZE];
     for (int i = 0; i < MATRIX_SIZE; i++) {
         int* column = new int[MATRIX_SIZE];
         for (int j = 0; j < MATRIX_SIZE; j++) {
             column[j] = matrix[j][i];
         }
 
-        maxColumnValues[i] = maxOfColl(column, MATRIX_SIZE);
+        diagonal[i] = calculate(column, MATRIX_SIZE);
 
         delete[] column;
     }
 
     for (int i = start; i < end; i++) {
         lock_guard<mutex> lock(m);
-        matrix[MATRIX_SIZE - i - 1][i] = maxColumnValues[i];
+        matrix[MATRIX_SIZE - i - 1][i] = diagonal[i];
     }
 
     FreeLibrary(hDLL);
@@ -123,7 +120,7 @@ void handleClient(SOCKET clientSocket) {
 
 
     stripHeader(receivedData);
-    printf(&receivedData[0]);
+    //printf(&receivedData[0]);
 
     int matrixSize;
     json matrixData;

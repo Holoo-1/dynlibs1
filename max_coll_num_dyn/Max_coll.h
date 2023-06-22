@@ -1,3 +1,3 @@
 #pragma once
 
-extern "C" __declspec(dllexport)  int MaxOfColl(int arr[], int MATRIXSIZE);
+extern "C" __declspec(dllexport)  int calculate(int arr[], int MATRIXSIZE);

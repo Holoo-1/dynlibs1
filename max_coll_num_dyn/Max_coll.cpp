@@ -1,6 +1,6 @@
 #include "Max_coll.h"
 
-int MaxOfColl(int arr[], int MATRIXSIZE) {
+int calculate(int arr[], int MATRIXSIZE) {
     int biggest = arr[0];
     for (int i = 0; i < MATRIXSIZE; i++) {
         if (biggest < arr[i]) {
